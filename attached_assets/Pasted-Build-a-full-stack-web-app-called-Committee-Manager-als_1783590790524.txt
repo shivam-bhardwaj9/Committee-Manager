@@ -1,0 +1,54 @@
+Build a full-stack web app called "Committee Manager" (also known as "Committee/BC/Samiti Tracker") for tracking members of a rotating savings committee and their monthly contributions.
+
+TECH STACK:
+- Frontend: React (with Vite)
+- Backend: Node.js + Express
+- Database: SQLite (using better-sqlite3 or similar, so data persists on disk)
+- Simple REST API between frontend and backend
+
+CORE FEATURES:
+
+1. Committee Settings
+   - Set committee name
+   - Set fixed monthly contribution amount per member (editable anytime)
+
+2. Member Management
+   - Add a new member with: Name, Phone Number, Date Joined
+   - Edit member details
+   - Delete a member (with confirmation)
+   - View list of all members
+
+3. Monthly Payment Tracking
+   - The app should automatically generate a "Month" column for the current month, and allow adding new months manually (e.g., "Add This Month" button)
+   - For each member, for each month, track:
+     - Whether they paid (yes/no)
+     - Amount paid (defaults to the monthly amount, but editable in case of partial payment)
+     - Date the payment was made
+   - Display this as a table/grid: rows = members, columns = months, cell = payment status (paid amount + date, or "Pending" if not paid)
+   - Clicking a cell should open a small form/modal to mark payment: amount + date, with a "Mark as Paid" and "Mark as Pending" toggle
+
+4. Dashboard / Summary (top of the page)
+   - Total collected this month
+   - Total pending this month (amount + number of members who haven't paid)
+   - List of member names who are pending for the current month
+   - Total members count
+   - Total number of months tracked
+
+5. Pot Winner Tracking (optional but nice to have)
+   - For each month/round, allow marking which member received the pooled amount that round (since this is a rotating committee/chit fund)
+
+DESIGN:
+- Clean, simple, ledger/register-style UI — should feel like a digital version of a handwritten accounts book
+- Use a warm, paper-like background (cream/off-white) with a dark ink-like text color and one accent color (deep red or maroon) for "pending/due" items and a muted green for "paid" items
+- Fully responsive — must work well on mobile since the user will primarily check this on their phone
+- Use a monospace or clean sans-serif font for numbers/amounts to make them easy to scan
+
+DATA PERSISTENCE:
+- All data (members, payments, months, settings) must be stored in the SQLite database, not just in memory, so nothing is lost on refresh or server restart
+
+NICE TO HAVE (if time permits):
+- Export monthly summary as CSV
+- Search/filter members by name
+- Highlight members who have missed 2+ consecutive payments in red
+
+Please set up the full project structure, install necessary dependencies, and make sure the app runs with a single command. Prioritize a working, functional MVP first (member add + payment tracking + summary), then add the nice-to-have features if time permits.

@@ -1,0 +1,1 @@
+- [Orval date coercion pitfall](orval-date-coercion.md) — format:date response fields need re-stringifying before res.json; also use onConflictDoUpdate for unique-pair upserts.

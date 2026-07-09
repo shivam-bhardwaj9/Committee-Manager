@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Committee Manager"
+version = "1.0.0"
+id = "artifacts/committee-manager"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18378
+
+[services.development]
+run = "pnpm --filter @workspace/committee-manager run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/committee-manager", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/committee-manager/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18378"
+BASE_PATH = "/"
