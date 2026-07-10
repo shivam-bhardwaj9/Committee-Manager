@@ -1,17 +1,17 @@
-services:
-- type: web
-  name: committee-manager-api
-  runtime: node
-  plan: free
-  rootDir: .
-  buildCommand: npm install -g pnpm@latest && pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server... run build
-  startCommand: node artifacts/api-server/dist/index.mjs
-  envVars:
-    - key: NODE_ENV
-      value: production
-    - key: DATABASE_URL
-      sync: false
-    - key: DB_SSL_MODE
-      value: require
-    - key: CORS_ORIGIN
-      sync: false
+     services:
+     - type: web
+       name: committee-manager-api
+       runtime: node
+       plan: free
+       rootDir: .
+       buildCommand: npx pnpm@latest install --frozen-lockfile && npx pnpm@latest --filter @workspace/api-server... run build
+       startCommand: node artifacts/api-server/dist/index.mjs
+       envVars:
+         - key: NODE_ENV
+           value: production
+         - key: DATABASE_URL
+           sync: false
+         - key: DB_SSL_MODE
+           value: require
+         - key: CORS_ORIGIN
+           sync: false
