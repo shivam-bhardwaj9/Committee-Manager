@@ -14,3 +14,18 @@ if (import.meta.env.VITE_API_URL) {
 }
 
 createRoot(document.getElementById('root')!).render(<App />);
+
+// Register the offline-caching service worker in production builds only —
+// in dev it would fight with Vite's own module reloading and serve stale
+// content.
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register(`${import.meta.env.BASE_URL}sw.js`, {
+        scope: import.meta.env.BASE_URL,
+      })
+      .catch((error) => {
+        console.error('Service worker registration failed', error);
+      });
+  });
+}
