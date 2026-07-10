@@ -1,26 +1,17 @@
-# Render Blueprint for the Committee Manager backend.
-# In the Render dashboard: New -> Blueprint -> point at this GitHub repo.
-# Render will read this file and provision the service below.
-#
-# You still need to set DATABASE_URL yourself (e.g. your Neon connection
-# string) in the Render dashboard, since it's marked `sync: false` here so
-# the secret never lives in this file.
 services:
-  - type: web
-    name: committee-manager-api
-    runtime: node
-    plan: free
-    rootDir: .
-    buildCommand: corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server... run build
-    startCommand: node artifacts/api-server/dist/index.mjs
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: DATABASE_URL
-        sync: false
-      - key: DB_SSL_MODE
-        value: require
-      - key: CORS_ORIGIN
-        sync: false
-      # PORT is injected automatically by Render; the server already reads
-      # process.env.PORT.
+- type: web
+  name: committee-manager-api
+  runtime: node
+  plan: free
+  rootDir: .
+  buildCommand: npm install -g pnpm@latest && pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server... run build
+  startCommand: node artifacts/api-server/dist/index.mjs
+  envVars:
+    - key: NODE_ENV
+      value: production
+    - key: DATABASE_URL
+      sync: false
+    - key: DB_SSL_MODE
+      value: require
+    - key: CORS_ORIGIN
+      sync: false
