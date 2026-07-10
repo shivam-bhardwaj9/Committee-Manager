@@ -25,7 +25,13 @@ app.use(
     },
   }),
 );
-app.use(cors());
+// When CORS_ORIGIN is set (comma-separated list), restrict cross-origin
+// requests to those origins — needed once the frontend is hosted separately
+// (e.g. Firebase). Left open by default for same-origin setups (Replit).
+const corsOrigin = process.env.CORS_ORIGIN?.split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+app.use(cors(corsOrigin?.length ? { origin: corsOrigin } : undefined));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
